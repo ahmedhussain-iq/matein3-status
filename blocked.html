@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>تم تقييد الوصول مؤقتاً</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <div class="page-container blocked-bg">
+    <!-- Background pattern -->
+    <div class="bg-pattern"></div>
+
+    <div class="content-wrapper">
+      <!-- Shield Icon -->
+      <div class="icon-container">
+        <div class="icon-circle icon-circle-red">
+          <!-- ShieldAlert SVG (matches Lucide ShieldAlert) -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+               stroke="#f87171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+            <path d="M12 8v4"/>
+            <path d="M12 16h.01"/>
+          </svg>
+          <!-- Pulse ring -->
+          <div class="pulse-ring pulse-ring-red"></div>
+        </div>
+      </div>
+
+      <!-- Title -->
+      <h1 class="page-title">تم تقييد الوصول مؤقتاً</h1>
+
+      <!-- Description -->
+      <p class="page-desc">
+        تم اكتشاف نشاط غير اعتيادي من عنوان الـ IP الخاص بك.
+        سيتم رفع القيود تلقائياً بعد فترة قصيرة.
+      </p>
+
+      <!-- Info Card -->
+      <div class="info-card">
+        <!-- Why happened -->
+        <div class="info-row">
+          <!-- AlertTriangle SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+               stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/>
+            <path d="M12 9v4"/>
+            <path d="M12 17h.01"/>
+          </svg>
+          <div>
+            <h3>لماذا حدث هذا؟</h3>
+            <p>نظام الحماية اكتشف عدداً كبيراً من الطلبات من عنوانك. هذا إجراء أمني لحماية المتجر والمستخدمين.</p>
+          </div>
+        </div>
+
+        <!-- What to do -->
+        <div class="info-row">
+          <!-- Clock SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+               stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <div>
+            <h3>ماذا أفعل؟</h3>
+            <p>انتظر بضع دقائق ثم حاول مرة أخرى. إذا استمرت المشكلة، تواصل مع إدارة المتجر.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Retry Section -->
+      <div class="retry-section">
+        <button id="retryBtn" class="btn-retry" onclick="handleRetry()">
+          <!-- RefreshCw SVG -->
+          <svg id="retryIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+            <path d="M21 3v5h-5"/>
+            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+            <path d="M3 21v-5h5"/>
+          </svg>
+          <span id="retryText">حاول مرة أخرى</span>
+        </button>
+
+        <p id="countdownText" class="countdown-text"></p>
+        <p id="errorText" class="error-text" style="display:none;">لا يزال الحظر سارياً. يرجى الانتظار أو التواصل مع الإدارة.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // Blocked Page Logic
+    // ============================================================
+    const ORIGIN = (() => {
+      // Get the origin domain from referrer or a known default
+      const params = new URLSearchParams(window.location.search);
+      return params.get('origin') || 'https://matein3store.com';
+    })();
+
+    let countdown = 60;
+    let retryCount = 0;
+    let retrying = false;
+    let countdownTimer = null;
+
+    // Start countdown on load
+    startCountdown();
+
+    function startCountdown() {
+      clearInterval(countdownTimer);
+      updateCountdownDisplay();
+      countdownTimer = setInterval(() => {
+        countdown--;
+        updateCountdownDisplay();
+        if (countdown <= 0) {
+          clearInterval(countdownTimer);
+          if (retryCount < 5) {
+            handleRetry();
+          }
+        }
+      }, 1000);
+    }
+
+    function updateCountdownDisplay() {
+      const el = document.getElementById('countdownText');
+      if (countdown > 0 && !retrying) {
+        el.textContent = 'محاولة تلقائية بعد ' + countdown + ' ثانية';
+      } else {
+        el.textContent = '';
+      }
+    }
+
+    async function handleRetry() {
+      if (retrying) return;
+      retrying = true;
+      clearInterval(countdownTimer);
+
+      const btn = document.getElementById('retryBtn');
+      const icon = document.getElementById('retryIcon');
+      const text = document.getElementById('retryText');
+
+      btn.disabled = true;
+      icon.classList.add('spin');
+      text.textContent = 'جاري المحاولة...';
+      document.getElementById('countdownText').textContent = '';
+
+      try {
+        // Try to reach the origin server
+        const res = await fetch(ORIGIN + '/api/storefront', {
+          method: 'HEAD',
+          mode: 'no-cors',
+          cache: 'no-store',
+        });
+        // If we get here without CORS error, redirect back
+        window.location.href = ORIGIN;
+        return;
+      } catch (e) {
+        // Still blocked or network error
+      }
+
+      // Still blocked
+      retrying = false;
+      retryCount++;
+      btn.disabled = false;
+      icon.classList.remove('spin');
+      text.textContent = 'حاول مرة أخرى';
+
+      if (retryCount >= 5) {
+        document.getElementById('errorText').style.display = 'block';
+        countdown = 300; // 5 minutes
+      } else {
+        countdown = Math.min(60 * (retryCount + 1), 300);
+      }
+      startCountdown();
+    }
+  </script>
+</body>
+</html>

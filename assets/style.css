@@ -1,0 +1,307 @@
+/* ============================================================
+   matein3-status — Shared Styles
+   Blocked & Maintenance pages for Cloudflare Pages
+   ============================================================ */
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #f1f5f9;
+  direction: rtl;
+  text-align: right;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   Shared: Full-screen container
+   ============================================================ */
+.page-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* ============================================================
+   Blocked Page Styles
+   ============================================================ */
+.blocked-bg {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+}
+
+/* Background pattern */
+.bg-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Content wrapper */
+.content-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 32rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Shield icon container */
+.icon-container {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.icon-circle {
+  position: relative;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-circle-red {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.25) 100%);
+  border: 2px solid rgba(239, 68, 68, 0.3);
+}
+
+.icon-circle-amber {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.25) 100%);
+  border: 2px solid rgba(245, 158, 11, 0.3);
+}
+
+.icon-circle svg {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+/* Pulse animation */
+.pulse-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: pulse-ring 3s ease-in-out infinite;
+}
+
+.pulse-ring-red {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.pulse-ring-amber {
+  background: rgba(245, 158, 11, 0.1);
+}
+
+@keyframes pulse-ring {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0; }
+}
+
+/* Title */
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #f1f5f9;
+}
+
+@media (min-width: 640px) {
+  .page-title { font-size: 1.875rem; }
+}
+
+/* Description */
+.page-desc {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1.75;
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+  color: #94a3b8;
+}
+
+@media (min-width: 640px) {
+  .page-desc { font-size: 1.125rem; }
+}
+
+/* Info card */
+.info-card {
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+  text-align: right;
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(71, 85, 105, 0.4);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  direction: rtl;
+}
+
+.info-row + .info-row {
+  margin-top: 1rem;
+}
+
+.info-row svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+}
+
+.info-row h3 {
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+  color: #e2e8f0;
+}
+
+.info-row p {
+  font-size: 0.875rem;
+  line-height: 1.75;
+  color: #94a3b8;
+}
+
+/* Icon colors */
+.text-red-400 { color: #f87171; }
+.text-amber-400 { color: #fbbf24; }
+.text-blue-400 { color: #60a5fa; }
+
+/* Retry section */
+.retry-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-retry {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+.btn-retry:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+.btn-retry:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: rgba(71, 85, 105, 0.5);
+  box-shadow: none;
+  transform: none;
+}
+
+.btn-retry svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* Spinning animation for retry icon */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin { animation: spin 1s linear infinite; }
+
+/* Countdown text */
+.countdown-text {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.error-text {
+  font-size: 0.75rem;
+  color: #f87171;
+}
+
+/* ============================================================
+   Maintenance Page Styles
+   ============================================================ */
+.maintenance-bg {
+  background: linear-gradient(135deg, #0f172a 0%, #1a2332 50%, #0f172a 100%);
+}
+
+.maintenance-desc {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1.75;
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+  color: #94a3b8;
+}
+
+/* Progress bar */
+.progress-bar-container {
+  width: 100%;
+  max-width: 20rem;
+  margin: 0 auto 2rem;
+  height: 4px;
+  background: rgba(71, 85, 105, 0.4);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 30%;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  border-radius: 2px;
+  animation: progress-slide 2s ease-in-out infinite;
+}
+
+@keyframes progress-slide {
+  0% { transform: translateX(-100%); width: 30%; }
+  50% { width: 60%; }
+  100% { transform: translateX(400%); width: 30%; }
+}
+
+/* Dots animation */
+.dots::after {
+  content: '';
+  animation: dots-anim 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots-anim {
+  0% { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+}
