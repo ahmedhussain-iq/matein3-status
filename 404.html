@@ -2,17 +2,251 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="robots" content="noindex, nofollow">
   <title>الصفحة غير موجودة</title>
-  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       Reset & Base
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+      line-height: 1.6;
+      direction: rtl;
+      text-align: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      background: #0f172a;
+      color: #f1f5f9;
+    }
+
+    /* ============================================================
+       Full-screen Layout
+       ============================================================ */
+    .page {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      overflow-y: auto;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    }
+
+    /* Background pattern */
+    .bg-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* Subtle radial glow */
+    .bg-glow {
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 350px;
+      background: radial-gradient(ellipse, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================================
+       Content
+       ============================================================ */
+    .content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ============================================================
+       Icon
+       ============================================================ */
+    .icon-container {
+      margin-bottom: 1.75rem;
+      position: relative;
+    }
+
+    .icon-circle {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(217, 119, 6, 0.2) 100%);
+      border: 2px solid rgba(245, 158, 11, 0.25);
+    }
+
+    .icon-circle svg {
+      width: 44px;
+      height: 44px;
+    }
+
+    /* ============================================================
+       Typography
+       ============================================================ */
+    .title {
+      font-size: 1.625rem;
+      font-weight: 800;
+      color: #f1f5f9;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #94a3b8;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+      max-width: 320px;
+    }
+
+    /* ============================================================
+       Button
+       ============================================================ */
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 2rem;
+      border-radius: 10px;
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #ffffff;
+      text-decoration: none;
+      background: linear-gradient(135deg, #F5A623 0%, #e8951a 100%);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 14px rgba(245, 166, 35, 0.3);
+    }
+
+    .btn-home:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 166, 35, 0.4);
+    }
+
+    .btn-home:active {
+      transform: translateY(0);
+    }
+
+    .btn-home svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ============================================================
+       404 Number
+       ============================================================ */
+    .error-code {
+      font-size: 5rem;
+      font-weight: 800;
+      color: rgba(245, 158, 11, 0.15);
+      position: absolute;
+      top: -3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: 0;
+      letter-spacing: 0.1em;
+    }
+
+    /* ============================================================
+       Footer
+       ============================================================ */
+    .footer {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 0;
+      right: 0;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .footer p {
+      font-size: 0.7rem;
+      color: rgba(148, 163, 184, 0.5);
+      font-weight: 400;
+    }
+
+    /* ============================================================
+       Animations
+       ============================================================ */
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .content {
+      animation: fade-in-up 0.6s ease-out;
+    }
+
+    /* ============================================================
+       Responsive — Tablet+
+       ============================================================ */
+    @media (min-width: 640px) {
+      .title { font-size: 1.875rem; }
+      .subtitle { font-size: 1.1rem; }
+      .icon-circle { width: 112px; height: 112px; }
+      .icon-circle svg { width: 52px; height: 52px; }
+      .error-code { font-size: 7rem; top: -4rem; }
+    }
+
+    /* ============================================================
+       Responsive — Small Mobile
+       ============================================================ */
+    @media (max-width: 380px) {
+      .title { font-size: 1.35rem; }
+      .subtitle { font-size: 0.9rem; }
+      .icon-circle { width: 80px; height: 80px; }
+      .icon-circle svg { width: 36px; height: 36px; }
+      .error-code { font-size: 4rem; top: -2.5rem; }
+    }
+  </style>
 </head>
 <body>
-  <div class="page-container blocked-bg">
+  <div class="page">
+    <!-- Background -->
     <div class="bg-pattern"></div>
-    <div class="content-wrapper">
+    <div class="bg-glow"></div>
+
+    <!-- Main Content -->
+    <div class="content">
+      <!-- 404 watermark -->
+      <span class="error-code">404</span>
+
+      <!-- Icon -->
       <div class="icon-container">
-        <div class="icon-circle icon-circle-amber">
+        <div class="icon-circle">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
@@ -21,18 +255,29 @@
           </svg>
         </div>
       </div>
-      <h1 class="page-title">الصفحة غير موجودة</h1>
-      <p class="page-desc">الصفحة التي تبحث عنها غير متوفرة.</p>
-      <div class="retry-section">
-        <a href="https://matein3store.com" class="btn-retry" style="text-decoration:none;">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-            <polyline points="9 22 9 12 15 12 15 22"/>
-          </svg>
-          <span>العودة للموقع</span>
-        </a>
-      </div>
+
+      <!-- Title -->
+      <h1 class="title">الصفحة غير موجودة</h1>
+
+      <!-- Subtitle -->
+      <p class="subtitle">
+        الصفحة التي تبحث عنها غير متوفرة أو تم نقلها.
+      </p>
+
+      <!-- Button -->
+      <a href="https://matein3store.com" class="btn-home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>العودة للموقع</span>
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>© متجر الجبل المتين</p>
     </div>
   </div>
 </body>

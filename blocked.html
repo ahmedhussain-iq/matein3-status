@@ -2,79 +2,407 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="robots" content="noindex, nofollow">
   <title>تم تقييد الوصول مؤقتاً</title>
-  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       Reset & Base
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+      line-height: 1.6;
+      direction: rtl;
+      text-align: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      background: #0f172a;
+      color: #f1f5f9;
+    }
+
+    /* ============================================================
+       Full-screen Layout
+       ============================================================ */
+    .page {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      overflow-y: auto;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    }
+
+    /* Background pattern */
+    .bg-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* Subtle radial glow */
+    .bg-glow {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(239, 68, 68, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================================
+       Content
+       ============================================================ */
+    .content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ============================================================
+       Shield Icon
+       ============================================================ */
+    .icon-container {
+      margin-bottom: 1.75rem;
+      position: relative;
+    }
+
+    .icon-circle {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(220, 38, 38, 0.2) 100%);
+      border: 2px solid rgba(239, 68, 68, 0.25);
+      position: relative;
+    }
+
+    .icon-circle svg {
+      width: 44px;
+      height: 44px;
+    }
+
+    /* Pulse ring */
+    .pulse-ring {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid rgba(239, 68, 68, 0.15);
+      animation: pulse-ring 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-ring {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0; }
+    }
+
+    /* ============================================================
+       Typography
+       ============================================================ */
+    .title {
+      font-size: 1.625rem;
+      font-weight: 800;
+      color: #f1f5f9;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #94a3b8;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+      max-width: 360px;
+    }
+
+    /* ============================================================
+       Info Cards
+       ============================================================ */
+    .info-cards {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .info-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+      padding: 1rem 1.25rem;
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(71, 85, 105, 0.35);
+      border-radius: 12px;
+      text-align: right;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+
+    .info-card:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(71, 85, 105, 0.5);
+    }
+
+    .info-card-icon {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .info-card-icon.amber {
+      background: rgba(251, 191, 36, 0.12);
+    }
+
+    .info-card-icon.blue {
+      background: rgba(96, 165, 250, 0.12);
+    }
+
+    .info-card-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .info-card-text h3 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 0.25rem;
+    }
+
+    .info-card-text p {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       Retry Section
+       ============================================================ */
+    .retry-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-retry {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 2rem;
+      border-radius: 10px;
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #ffffff;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-retry:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    .btn-retry:active {
+      transform: translateY(0);
+    }
+
+    .btn-retry:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      background: rgba(71, 85, 105, 0.5);
+      box-shadow: none;
+    }
+
+    .btn-retry svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .countdown {
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .error-msg {
+      font-size: 0.75rem;
+      color: #f87171;
+      font-weight: 500;
+      display: none;
+    }
+
+    /* ============================================================
+       Footer
+       ============================================================ */
+    .footer {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 0;
+      right: 0;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .footer p {
+      font-size: 0.7rem;
+      color: rgba(148, 163, 184, 0.5);
+      font-weight: 400;
+    }
+
+    /* ============================================================
+       Animations
+       ============================================================ */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .spin { animation: spin 1s linear infinite; }
+
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .content {
+      animation: fade-in-up 0.6s ease-out;
+    }
+
+    /* ============================================================
+       Responsive — Tablet+
+       ============================================================ */
+    @media (min-width: 640px) {
+      .title { font-size: 1.875rem; }
+      .subtitle { font-size: 1.1rem; }
+      .icon-circle { width: 112px; height: 112px; }
+      .icon-circle svg { width: 52px; height: 52px; }
+      .info-cards { flex-direction: row; gap: 1rem; }
+      .info-card { flex: 1; flex-direction: column; align-items: center; text-align: center; padding: 1.25rem; }
+      .info-card-icon { margin-top: 0; margin-bottom: 0.5rem; }
+    }
+
+    /* ============================================================
+       Responsive — Small Mobile
+       ============================================================ */
+    @media (max-width: 380px) {
+      .title { font-size: 1.35rem; }
+      .subtitle { font-size: 0.9rem; }
+      .icon-circle { width: 80px; height: 80px; }
+      .icon-circle svg { width: 36px; height: 36px; }
+      .info-card { padding: 0.875rem 1rem; gap: 0.625rem; }
+      .info-card-icon { width: 32px; height: 32px; }
+      .info-card-icon svg { width: 16px; height: 16px; }
+    }
+  </style>
 </head>
 <body>
-  <div class="page-container blocked-bg">
-    <!-- Background pattern -->
+  <div class="page">
+    <!-- Background -->
     <div class="bg-pattern"></div>
+    <div class="bg-glow"></div>
 
-    <div class="content-wrapper">
+    <!-- Main Content -->
+    <div class="content">
       <!-- Shield Icon -->
       <div class="icon-container">
-        <div class="icon-circle icon-circle-red">
-          <!-- ShieldAlert SVG (matches Lucide ShieldAlert) -->
+        <div class="icon-circle">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                stroke="#f87171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
             <path d="M12 8v4"/>
             <path d="M12 16h.01"/>
           </svg>
-          <!-- Pulse ring -->
-          <div class="pulse-ring pulse-ring-red"></div>
+          <div class="pulse-ring"></div>
         </div>
       </div>
 
       <!-- Title -->
-      <h1 class="page-title">تم تقييد الوصول مؤقتاً</h1>
+      <h1 class="title">تم تقييد الوصول مؤقتاً</h1>
 
-      <!-- Description -->
-      <p class="page-desc">
+      <!-- Subtitle -->
+      <p class="subtitle">
         تم اكتشاف نشاط غير اعتيادي من عنوان الـ IP الخاص بك.
         سيتم رفع القيود تلقائياً بعد فترة قصيرة.
       </p>
 
-      <!-- Info Card -->
-      <div class="info-card">
-        <!-- Why happened -->
-        <div class="info-row">
-          <!-- AlertTriangle SVG -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-               stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/>
-            <path d="M12 9v4"/>
-            <path d="M12 17h.01"/>
-          </svg>
-          <div>
+      <!-- Info Cards -->
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="info-card-icon amber">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                 stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/>
+              <path d="M12 9v4"/>
+              <path d="M12 17h.01"/>
+            </svg>
+          </div>
+          <div class="info-card-text">
             <h3>لماذا حدث هذا؟</h3>
             <p>نظام الحماية اكتشف عدداً كبيراً من الطلبات من عنوانك. هذا إجراء أمني لحماية المتجر والمستخدمين.</p>
           </div>
         </div>
 
-        <!-- What to do -->
-        <div class="info-row">
-          <!-- Clock SVG -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-               stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
-          <div>
+        <div class="info-card">
+          <div class="info-card-icon blue">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                 stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="info-card-text">
             <h3>ماذا أفعل؟</h3>
             <p>انتظر بضع دقائق ثم حاول مرة أخرى. إذا استمرت المشكلة، تواصل مع إدارة المتجر.</p>
           </div>
         </div>
       </div>
 
-      <!-- Retry Section -->
-      <div class="retry-section">
+      <!-- Retry -->
+      <div class="retry-area">
         <button id="retryBtn" class="btn-retry" onclick="handleRetry()">
-          <!-- RefreshCw SVG -->
           <svg id="retryIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
             <path d="M21 3v5h-5"/>
             <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
@@ -82,19 +410,22 @@
           </svg>
           <span id="retryText">حاول مرة أخرى</span>
         </button>
-
-        <p id="countdownText" class="countdown-text"></p>
-        <p id="errorText" class="error-text" style="display:none;">لا يزال الحظر سارياً. يرجى الانتظار أو التواصل مع الإدارة.</p>
+        <p id="countdownText" class="countdown"></p>
+        <p id="errorText" class="error-msg">لا يزال الحظر سارياً. يرجى الانتظار أو التواصل مع الإدارة.</p>
       </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>© متجر الجبل المتين — نظام الحماية</p>
     </div>
   </div>
 
   <script>
     // ============================================================
-    // Blocked Page Logic
+    // Blocked Page — Auto-retry Logic
     // ============================================================
     const ORIGIN = (() => {
-      // Get the origin domain from referrer or a known default
       const params = new URLSearchParams(window.location.search);
       return params.get('origin') || 'https://matein3store.com';
     })();
@@ -104,7 +435,6 @@
     let retrying = false;
     let countdownTimer = null;
 
-    // Start countdown on load
     startCountdown();
 
     function startCountdown() {
@@ -125,7 +455,7 @@
     function updateCountdownDisplay() {
       const el = document.getElementById('countdownText');
       if (countdown > 0 && !retrying) {
-        el.textContent = 'محاولة تلقائية بعد ' + countdown + ' ثانية';
+        el.textContent = '\u0645\u062d\u0627\u0648\u0644\u0629 \u062a\u0644\u0642\u0627\u0626\u064a\u0629 \u0628\u0639\u062f ' + countdown + ' \u062b\u0627\u0646\u064a\u0629';
       } else {
         el.textContent = '';
       }
@@ -142,17 +472,15 @@
 
       btn.disabled = true;
       icon.classList.add('spin');
-      text.textContent = 'جاري المحاولة...';
+      text.textContent = '\u062c\u0627\u0631\u064a \u0627\u0644\u0645\u062d\u0627\u0648\u0644\u0629...';
       document.getElementById('countdownText').textContent = '';
 
       try {
-        // Try to reach the origin server
         const res = await fetch(ORIGIN + '/api/storefront', {
           method: 'HEAD',
           mode: 'no-cors',
           cache: 'no-store',
         });
-        // If we get here without CORS error, redirect back
         window.location.href = ORIGIN;
         return;
       } catch (e) {
@@ -164,7 +492,7 @@
       retryCount++;
       btn.disabled = false;
       icon.classList.remove('spin');
-      text.textContent = 'حاول مرة أخرى';
+      text.textContent = '\u062d\u0627\u0648\u0644 \u0645\u0631\u0629 \u0623\u062e\u0631\u0649';
 
       if (retryCount >= 5) {
         document.getElementById('errorText').style.display = 'block';
